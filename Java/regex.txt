@@ -1,0 +1,124 @@
+Regular Expressions in Java
+        Regular Expressions, commonly known as Regex, 
+        provide a powerful way to define string patterns for searching, 
+        validating and manipulating text in Java. 
+        They are widely used for tasks such as email validation, 
+        password strength checking, parsing logs and text replacement.
+
+    class_in_java_util_regex_package
+    Classes in java.util.regex package
+    In Java, regular expressions are supported through the java.util.regex package, 
+    which mainly consists of the following classes:
+
+        Pattern: Defines the regular expression.
+        Matcher: Used to perform operations such as matching, searching and replacing.
+        PatternSyntaxException: Indicates a syntax error in the regular expression.
+
+Pattern Class
+    The Pattern class compiles regex strings into pattern objects.
+
+Methods:
+    compile(String regex): Compiles a regex.
+    matcher(CharSequence input): Creates a matcher to search a string.
+    matches(String regex, CharSequence input): Checks full-string match.
+    split(CharSequence input): Splits input based on the pattern.
+
+
+
+import java.util.regex.Pattern;
+
+class PatternExample {
+    public static void main(String[] args){
+        System.out.println(Pattern.matches("geeks.*", "geeksforgeeks")); // true
+        System.out.println(Pattern.matches("geeks[0-9]+", "geeks12s"));   // false
+    }
+}
+import java.util.regex.Pattern;
+​
+class PatternExample {
+    public static void main(String[] args){
+        System.out.println(Pattern.matches("geeks.*", "geeksforgeeks")); // true
+        System.out.println(Pattern.matches("geeks[0-9]+", "geeks12s"));   // false
+    }
+}
+
+Output
+true
+false
+Matcher Class
+The Matcher class performs matching operations for input strings.
+
+Key Methods:
+    find(): Searches for pattern occurrences.
+    start() / end(): Returns start and end indices of a match.
+    group() / groupCount(): Retrieves matched subsequences.
+    matches(): Checks if the entire input matches the pattern.
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+class MatcherExample {
+    public static void main(String[] args) {
+        Pattern p = Pattern.compile("geeks");
+        Matcher m = p.matcher("geeksforgeeks.org");
+
+        while (m.find()) {
+            System.out.println("Pattern found from " + m.start() + " to " + (m.end() - 1));
+        }
+    }
+}
+Output:
+
+Pattern found from 0 to 4
+
+Pattern found from 8 to 12
+
+Regex Character Classes
+    [xyz]: Matches x, y, or z
+    [^xyz]: Matches any character except x, y, or z
+    [a-zA-Z]: Matches any character in the specified range
+    [a-f[m-t]]: Union of ranges a–f and m–t
+    [a-z && [^m-p]]: Intersection of a–z excluding m–p
+
+import java.util.regex.Pattern;
+
+class CharClassExample {
+    public static void main(String[] args) {
+        System.out.println(Pattern.matches("[a-z]", "g"));      // true
+        System.out.println(Pattern.matches("[a-zA-Z]", "Gfg")); // false
+    }
+}
+Regex Quantifiers / Metacharacters
+    X?: X appears 0 or 1 time
+    X+: X appears 1 or more times
+    X*: X appears 0 or more times
+    X{n}: X appears exactly n times
+    X{n,}: X appears n or more times
+    X{n,m}: X appears between n and m times
+
+System.out.println(Pattern.matches("[b-z]?", "a"));         // false
+System.out.println(Pattern.matches("[a-zA-Z]+", "GfgTest")); // true
+System.out.println(Pattern.matches("[^a-z]?", "g"));         // false
+System.out.println(Pattern.matches("[geks]*", "geeksgeeks")); // true
+
+Common Regex Patterns in Java
+    . : Any character
+    \d : Digit [0-9]
+    \D : Non-digit
+    \s : Whitespace
+    \S : Non-whitespace
+    \w : Word character [a-zA-Z0-9_]
+    \W : Non-word character
+    \b : Word boundary
+    \B : Non-word boundary
+
+System.out.println(Pattern.matches("\\d+", "1234")); // true
+System.out.println(Pattern.matches("\\D+", "1234")); // false
+System.out.println(Pattern.matches("\\D+", "Gfg"));  // true
+System.out.println(Pattern.matches("\\S+", "gfg"));  // true
+Important Notes
+    Use Pattern.compile() to create a regex pattern.
+    Use matcher() on a Pattern to perform matches.
+    Pattern.matches() validates the whole string, 
+    while Matcher.find() searches for multiple occurrences.
+    Regex can split text, validate input, and extract data efficiently in Java.
